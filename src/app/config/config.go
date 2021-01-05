@@ -11,8 +11,9 @@ import (
 )
 
 type Config struct {
-	Port     int     `env:"PORT" envDefault:"8050"`
-	MysqlURL url.URL `env:"MYSQL_URL" envDefault:"mysql://root:123@0.0.0.0:3306/test?charset=utf8&parseTime=True"` //?parseTime=true
+	Port int `env:"PORT" envDefault:"8050"`
+	//MysqlURL url.URL `env:"MYSQL_URL" envDefault:"mysql://root:123@0.0.0.0:3306/test?charset=utf8&parseTime=True"` //?parseTime=true
+	MysqlURL url.URL `env:"MYSQL_URL" envDefault:"mysql://root:123@0.0.0.0:3306/test?parseTime=true"` //?parseTime=true
 
 }
 

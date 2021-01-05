@@ -10,7 +10,7 @@ import (
 )
 
 type QueryI interface {
-	GetByName(req string)(res *storage.TestTable,err error)
+	GetByName(req string) (res *storage.TestTableRes, err error)
 }
 
 type MysqlQueryI struct {
@@ -22,8 +22,6 @@ func NewQueryI(db *gorm.DB) QueryI {
 		db,
 	}
 }
-func (mu *MysqlQueryI)GetByName(req string)(res *storage.TestTable,err error){
-	return  new(storage.TestTable).GetByName(mu.DB,req)
+func (mu *MysqlQueryI) GetByName(req string) (res *storage.TestTableRes, err error) {
+	return new(storage.TestTable).GetByName(mu.DB, req)
 }
-
-

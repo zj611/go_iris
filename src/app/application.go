@@ -9,6 +9,7 @@ import (
 	"example.com/m/pkg/storage"
 	"example.com/m/src/app/config"
 	"example.com/m/src/app/services"
+	"fmt"
 	"github.com/kataras/iris/v12"
 )
 
@@ -16,8 +17,8 @@ type App struct {
 	*iris.Application
 	DbCheck pinger
 	Config  *config.Config
-	QueryI      services.QueryI
-	InputI services.InputI
+	QueryI  services.QueryI
+	InputI  services.InputI
 }
 
 type Configurator func(*App)
@@ -35,7 +36,7 @@ func NewApp() *App {
 	app := iris.Default()
 	cfg := config.ReadEnv()
 
-	//fmt.Printf("s%", cfg.MysqlURL)
+	fmt.Printf("s%", cfg.MysqlURL)
 
 	db := mysql.NewGormDB(&cfg.MysqlURL)
 	db.SingularTable(true)
@@ -43,10 +44,9 @@ func NewApp() *App {
 	app.Logger().Info("begin auto migration")
 	if err := db.AutoMigrate(
 		&storage.TestTable{},
-		).Error; err != nil {
+	).Error; err != nil {
 		panic(err)
 	}
-
 
 	app.Logger().Info("auto migration success")
 
@@ -61,8 +61,8 @@ func NewApp() *App {
 			}
 			return true
 		},
-		Config : cfg,
-		QueryI : queryI,
-		InputI : inputI,
+		Config: cfg,
+		QueryI: queryI,
+		InputI: inputI,
 	}
 }
